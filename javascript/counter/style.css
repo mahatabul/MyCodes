@@ -1,0 +1,27 @@
+.box{
+    display: flex;
+    flex-direction: column;
+    
+    align-items: center;
+}
+.counter{
+    height: 20vh;
+    
+    font-size: 84px;
+    text-align: center;
+    height: 200px;
+    width: 200px;
+    margin: 13px 13px;
+}
+.btn{
+    background-color: aliceblue;
+    border: 1px solid blue;
+    padding: 12px 15px;
+    margin: 44px 44px;
+    cursor: pointer;
+}
+
+.btn:active {
+  background-color: #fb0707;
+  transform: scale(1.1);
+}

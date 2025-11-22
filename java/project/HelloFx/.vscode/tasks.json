@@ -1,0 +1,14 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Open in SceneBuilder",
+      "type": "shell",
+      "command": "/opt/scenebuilder/bin/SceneBuilder",
+      "args": [
+        "${file}"
+      ],
+      "problemMatcher": []
+    }
+  ]
+}

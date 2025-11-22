@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body class="bg-green-50">
+    <header class="bg-slate-50">
+      <nav class="flex flex-col p-4 align-middle sm:flex-row justify-between">
+        <div class="flex items-center justify-between w-full sm:w-auto">
+          <img
+            class="w-16 rounded-full"
+            src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.pixabay.com%2Fphoto%2F2016%2F12%2F27%2F13%2F10%2Flogo-1933884_1280.png&f=1&nofb=1&ipt=a666c930620bb5a58b186bb87a641d325abbf27cb2c7c44f8671a41af9deb5a9&ipo=images"
+            alt=""
+          />
+
+          <button id="hamburger-icon" class="text-3xl sm:hidden">
+            &#9776;
+          </button>
+        </div>
+
+        <!-- Navigation Links (Hidden by Default on Mobile) -->
+        <div
+          class="absolute top-20 right-0 bg-slate-50 w-screen sm:static sm:w-fit"
+        >
+          <div
+            id="nav-links"
+            class="my-1 h-96 sticky top-0 sm:h-10 flex hidden flex-col gap-y-9 sm:gap-x-6 items-center sm:flex-row sm:flex"
+          >
+            <a
+              class="nav-link hover:bg-gradient-to-r from-green-200 to-blue-400 px-4 py-1 rounded-3xl"
+              href=""
+              >Home</a
+            >
+            <a
+              class="nav-link hover:bg-gradient-to-r from-green-200 to-blue-400 px-4 py-1 rounded-3xl"
+              href=""
+              >About</a
+            >
+            <a
+              class="nav-link hover:bg-gradient-to-r from-green-200 to-blue-400 px-4 py-1 rounded-3xl"
+              href=""
+              >Work</a
+            >
+            <a
+              class="nav-link hover:bg-gradient-to-r from-green-200 to-blue-400 px-4 py-1 rounded-3xl"
+              href=""
+              >Contacts</a
+            >
+
+            <button
+              class="m-5 bg-gradient-to-r from-purple-600 to-blue-500 hover:bg-gradient-to-tr rounded-3xl w-24 p-2"
+            >
+              Sign in
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      <script>
+        // Toggle the visibility of the navigation links when clicking the hamburger icon
+        document
+          .getElementById("hamburger-icon")
+          .addEventListener("click", () => {
+            const navLinks = document.getElementById("nav-links");
+            navLinks.classList.toggle("hidden"); // Toggle the 'hidden' class on the nav links
+          });
+      </script>
+    </header>
+
+    <main>
+      <div
+        class="text-right bg-red-800 font-sans font-semibold text-rose-50 p-4"
+      >
+        <h1>HI</h1>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia,
+          veritatis provident. Molestias laborum id temporibus a culpa illo
+          natus ratione nesciunt corporis, voluptatum, debitis veritatis dicta
+          animi consequatur minima rerum.
+        </p>
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,96 @@
+/* Reset body margin */
+body {
+  margin: 0;
+}
+
+/* Heading styles */
+h1 {
+  text-align: center;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-size: 40px;
+}
+
+/* Navigation bar */
+.nav {
+  background-color: black;
+}
+
+/* Navigation menu layout */
+.nav ul {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Individual nav items */
+.nav li {
+  position: relative; /* Needed for dropdown positioning */
+  padding: 10px 20px;
+}
+
+/* Nav links */
+.nav .links {
+  text-decoration: none;
+  color: rgb(255, 217, 0);
+  font-family: monospace;
+  font-size: large;
+  padding: 8px 12px;
+  display: block;
+}
+
+/* Hover effects */
+.nav li:hover {
+  background-color: rgb(255, 234, 0);
+}
+.nav li:hover .links {
+  color: black;
+}
+.nav li:hover .dlink {
+  color: black;
+}
+
+/* Dropdown container */
+.dropdown {
+  position: relative;
+}
+.dropdown .dlink {
+  text-decoration: none;
+  color: rgb(255, 217, 0);
+  font-family: monospace;
+  font-size: large;
+  padding: 8px 12px;
+  display: block;
+}
+.dropdown-content {
+  display: none;
+  background-color: rgb(0, 0, 0);
+  position: absolute;
+  top: 50px;
+  border-radius: 5px;
+  box-shadow: 5px 5px 6px black;
+}
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+.dropdown-content a {
+  display: inline-block;
+  text-decoration: none;
+  color: yellow;
+  padding: 15px 30px;
+}
+.dropdown-content a:hover {
+  background-color: rgb(92, 92, 92);
+  display: block;
+}
+/* Main content styling */
+main {
+  margin: 50px;
+}
+main h3 {
+  text-align: center;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 30px;
+}

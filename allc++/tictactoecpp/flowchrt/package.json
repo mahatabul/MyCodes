@@ -1,0 +1,36 @@
+{
+  "name": "cpp-flowchart",
+  "displayName": "C++ Flowchart",
+  "description": "Generates a flowchart from C++ code in VSCodium",
+  "version": "0.0.1",
+  "publisher": "myname",
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:cpp-flowchart.generateFlowchart"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "cpp-flowchart.generateFlowchart",
+        "title": "Generate C++ Flowchart"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "echo No compilation needed for JavaScript",
+    "watch": "echo No watch needed for JavaScript"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.60.0"
+  },
+  "dependencies": {
+    "mermaid": "^10.9.0"
+  }
+}
