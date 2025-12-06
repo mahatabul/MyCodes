@@ -1,13 +1,14 @@
 
-public class Angle{
+public class Angle {
     public double width;
 
-    public Angle(){
+    public Angle() {
 
-        width=1.0;
+        width = 1.0;
     }
-    public Angle(double w){
-        width=w;
+
+    public Angle(double w) {
+        width = w;
     }
-    
+
 }
