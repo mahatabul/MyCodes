@@ -1,110 +1,106 @@
 #include <iostream>
 #include <vector>
 #include <queue>
-#include <unordered_map>
+#include <stack>
 #include <algorithm>
 
 using namespace std;
 
-class Graph {
-    // Adjacency list: node -> list of neighbors
-    unordered_map<int, vector<int>> adj;
+// 1. BFS to find the shortest path between two nodes
+void findShortestPath(int start, int target, int V, const vector<vector<int>> &adj)
+{
+    vector<int> parent(V, -1);
+    vector<bool> visited(V, false);
+    queue<int> q;
 
-public:
-    void addEdge(int u, int v) {
-        adj[u].push_back(v);
-        // Ensure v exists in the map even if it has no outgoing edges
-        if (adj.find(v) == adj.end()) {
-            adj[v] = {};
+    visited[start] = true;
+    q.push(start);
+
+    bool found = false;
+    while (!q.empty())
+    {
+        int curr = q.front();
+        q.pop();
+
+        if (curr == target)
+        {
+            found = true;
+            break;
+        }
+
+        for (int neighbor : adj[curr])
+        {
+            if (!visited[neighbor])
+            {
+                visited[neighbor] = true;
+                parent[neighbor] = curr;
+                q.push(neighbor);
+            }
         }
     }
 
-    // 1. Find all reachable nodes using BFS
-    void printReachable(int startNode) {
-        unordered_map<int, bool> visited;
-        queue<int> q;
+    if (found)
+    {
+        vector<int> path;
+        for (int v = target; v != -1; v = parent[v])
+            path.push_back(v);
+        reverse(path.begin(), path.end());
 
-        q.push(startNode);
-        visited[startNode] = true;
-
-        cout << "Nodes reachable from " << startNode << ": ";
-        while (!q.empty()) {
-            int current = q.front();
-            q.pop();
-            cout << current << " ";
-
-            for (int neighbor : adj[current]) {
-                if (!visited[neighbor]) {
-                    visited[neighbor] = true;
-                    q.push(neighbor);
-                }
-            }
-        }
+        cout << "Shortest Path (BFS): ";
+        for (int i = 0; i < path.size(); i++)
+            cout << path[i] << (i == path.size() - 1 ? "" : " -> ");
         cout << endl;
     }
+    else
+    {
+        cout << "No path exists between " << start << " and " << target << endl;
+    }
+}
 
-    // 2. Find shortest path between two nodes
-    void findShortestPath(int start, int target) {
-        unordered_map<int, int> parent; // To reconstruct the path
-        unordered_map<int, bool> visited;
-        queue<int> q;
+void printReachableBFS(int start, int V, const vector<vector<int>> &adj)
+{
 
-        q.push(start);
-        visited[start] = true;
-        parent[start] = -1; // Root node has no parent
+    vector<bool> visited(V, false);
+    queue<int> q;
 
-        bool found = false;
-        while (!q.empty()) {
-            int current = q.front();
-            q.pop();
+    visited[start] = true;
+    q.push(start);
+    cout << "Reachable nodes (BFS): ";
+    while (!q.empty())
+    {
+        int curr = q.front();
+        q.pop();
+        cout << curr << " ";
 
-            if (current == target) {
-                found = true;
-                break;
+        for (int neighbor : adj[curr])
+        {
+            if (!visited[neighbor])
+            {
+                visited[neighbor] = true;
+                q.push(neighbor);
             }
-
-            for (int neighbor : adj[current]) {
-                if (!visited[neighbor]) {
-                    visited[neighbor] = true;
-                    parent[neighbor] = current;
-                    q.push(neighbor);
-                }
-            }
-        }
-
-        if (found) {
-            vector<int> path;
-            for (int v = target; v != -1; v = parent[v]) {
-                path.push_back(v);
-            }
-            reverse(path.begin(), path.end());
-
-            cout << "Shortest path from " << start << " to " << target << ": ";
-            for (int i = 0; i < path.size(); ++i) {
-                cout << path[i] << (i == path.size() - 1 ? "" : " -> ");
-            }
-            cout << endl;
-        } else {
-            cout << "No path exists between " << start << " and " << target << endl;
         }
     }
-};
+}
 
-int main() {
-    Graph g;
+int main()
+{
+    int V = 7; // Number of vertices
+    vector<vector<int>> adj(V);
 
-    // Example Graph: 0 -> 1, 0 -> 2, 1 -> 3, 2 -> 3, 3 -> 4
-    g.addEdge(0, 1);
-    g.addEdge(0, 2);
-    g.addEdge(1, 3);
-    g.addEdge(2, 3);
-    g.addEdge(3, 4);
+    // Building a directed graph
+    adj[0] = {1, 2};
+    adj[1] = {3};
+    adj[2] = {3, 4};
+    adj[3] = {5};
+    adj[4] = {6};
+    adj[6] = {5};
 
-    int start = 0;
-    int target = 4;
+    int startNode = 0;
+    int targetNode = 5;
 
-    g.printReachable(start);
-    g.findShortestPath(start, target);
+    // findShortestPath(startNode, targetNode, V, adj);
+    printReachableBFS(startNode, V, adj);
 
     return 0;
 }

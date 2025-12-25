@@ -2,65 +2,74 @@
 #include <vector>
 #include <unordered_map>
 #include <unordered_set>
+#include <stack>
 
 using namespace std;
 
-class Graph {
-    // Adjacency list: node -> list of neighbors
-    unordered_map<int, vector<int>> adj;
+void printReachableDFS(int start, int V, const vector<vector<int>> &adj)
+{
+    vector<bool> visited(V, false);
+    stack<int> s;
 
-    // Helper function for recursion
-    void dfsHelper(int current, unordered_set<int>& visited) {
-        // Mark the current node as visited and print it
-        visited.insert(current);
-        cout << current << " ";
+    s.push(start);
+    visited[start] = true;
+    cout << "Reachable nodes (DFS): ";
 
-        // Recur for all the vertices adjacent to this vertex
-        for (int neighbor : adj[current]) {
-            if (visited.find(neighbor) == visited.end()) {
-                dfsHelper(neighbor, visited);
+    while (!s.empty())
+    {
+        int curr = s.top();
+        s.pop();
+
+        cout << curr << " ";
+
+        for (int neighbor : adj[curr])
+        {
+            if (!visited[neighbor])
+            {
+                s.push(neighbor);
+                visited[neighbor] = true;
             }
         }
     }
 
-public:
-    void addEdge(int u, int v) {
-        adj[u].push_back(v);
-        // Ensure v exists in the map
-        if (adj.find(v) == adj.end()) {
-            adj[v] = {};
-        }
-    }
+    cout << endl;
+}
 
-    // Print all nodes reachable from startNode
-    void printReachableDFS(int startNode) {
-        unordered_set<int> visited;
-        
-        cout << "Nodes reachable from " << startNode << " (using DFS): ";
-        // Check if the start node actually exists in our graph
-        if (adj.find(startNode) != adj.end() || !adj.empty()) {
-            dfsHelper(startNode, visited);
-        }
-        cout << endl;
-    }
-};
+// void dfsHelper(int node, vector<bool> &visited, vector<int> &ls, const vector<vector<int>> &adj)
+// {
+//     visited[node] = true;
+//     ls.push_back(node);
+//     for (auto it : adj[node])
+//     {
+//         if (!visited[it])
+//         {
+//             dfsHelper(it, visited, ls, adj);
+//         }
+//     }
+// }
+// vector<int> dfs(int start, int V, const vector<vector<int>> &adj)
+// {
+//     vector<bool> visited(V, false);
+//     vector<int> ls;
+//     dfsHelper(start, visited, ls, adj);
+//     return ls;
+// }
+int main()
+{
+    int V = 6; // Number of vertices
+    vector<vector<int>> adj(V);
 
-int main() {
-    Graph g;
+    // Building a directed graph
+    adj[0] = {1, 2};
+    adj[1] = {3};
+    adj[2] = {3, 4};
+    adj[3] = {5};
+    adj[4] = {5};
+    // 5 has no outgoing edges
 
-    // Example Graph:
-    // 0 -> 1, 0 -> 2
-    // 1 -> 3
-    // 2 -> 4
-    // 3 -> 0 (cycle)
-    g.addEdge(0, 1);
-    g.addEdge(0, 2);
-    g.addEdge(1, 3);
-    g.addEdge(2, 4);
-    g.addEdge(3, 0); 
-
-    int start = 0;
-    g.printReachableDFS(start);
+    int startNode = 0;
+    printReachableDFS(startNode, V, adj);
+    
 
     return 0;
 }
