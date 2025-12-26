@@ -1,12 +1,15 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+typedef tuple<int, int, int> T;
 // Disjoint Set (Union-Find) with Union by Size + Path Compression
-class DSU {
+class DSU
+{
 public:
     vector<int> parent, sz;
 
-    DSU(int n) {
+    DSU(int n)
+    {
         parent.resize(n);
         sz.resize(n, 1);
 
@@ -14,35 +17,42 @@ public:
             parent[i] = i;
     }
 
-    int findSet(int v) {
+    int findSet(int v)
+    {
         if (parent[v] == v)
             return v;
         return parent[v] = findSet(parent[v]); // path compression
     }
 
-    bool unionSet(int a, int b) {
+    void unionBySize(int a, int b)
+    {
         a = findSet(a);
         b = findSet(b);
 
         if (a == b)
-            return false; // already in same set
+            return; // already in same set
 
         // Union by size
         if (sz[a] < sz[b])
-            swap(a, b);
-
-        parent[b] = a;
-        sz[a] += sz[b];
-        return true;
+        {
+            parent[a] = b;
+            sz[b] += sz[a];
+        }
+        else
+        {
+            parent[b] = a;
+            sz[a] += sz[b];
+        }
     }
 };
 
-int main() {
+int main()
+{
     int V = 5;
 
     // Convert adjacency list into an edge list
     // (u, v, w)
-    vector<tuple<int, int, int>> edges;
+    vector<T> edges;
     edges.push_back({2, 0, 1});
     edges.push_back({3, 0, 3});
     edges.push_back({1, 1, 2});
@@ -52,7 +62,8 @@ int main() {
 
     // Sort edges by weight
     sort(edges.begin(), edges.end(),
-         [](auto &a, auto &b) {
+         [](auto &a, auto &b)
+         {
              return get<0>(a) < get<0>(b);
          });
 
@@ -61,19 +72,23 @@ int main() {
     vector<pair<int, int>> mstEdges;
     int totalCost = 0;
 
-    for (auto &e : edges) {
-        int w, u, v;
-        tie(w, u, v) = e;
+    for (auto &e : edges)
+    {
+
+        auto [w, u, v] = e;
 
         // Check if adding this edge forms a cycle
-        if (dsu.unionSet(u, v)) {
+        if (dsu.findSet(u) != dsu.findSet(v))
+        {
             mstEdges.push_back({u, v});
             totalCost += w;
+            dsu.unionBySize(u, v);
         }
     }
 
     cout << "Edges in MST:" << endl;
-    for (auto &p : mstEdges) {
+    for (auto &p : mstEdges)
+    {
         cout << p.first << " - " << p.second << endl;
     }
 
