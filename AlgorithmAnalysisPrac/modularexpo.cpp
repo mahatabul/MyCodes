@@ -12,17 +12,11 @@ ll modExp(ll a, ll n)
     {
         return 1;
     }
-    // if n is even
-    ll half = modExp(a, n / 2);
-    ll result = (half * half) % MOD;
-
-    // if n is odd
-    if (n & 1)
-    {
-        result *= a;
-        result %= MOD;
-    }
-
+    
+    // Decrease by 1: a^n = a * a^(n-1)
+    ll result = modExp(a, n - 1);
+    result = (result * a) % MOD;
+    
     return result;
 }
 
