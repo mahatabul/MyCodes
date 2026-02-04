@@ -39,7 +39,7 @@ int getHashCode(string z)
 {
     int code = 0;
     int len = z.length();
-
+    
     for (int i = 0; i < len; i++)
     {
         code += (getcode(z[i]) * modExp(base, len - 1 - i));
